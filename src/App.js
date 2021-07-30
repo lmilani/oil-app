@@ -8,7 +8,7 @@ import makeData from "./makeData";
 
 const Styles = styled.div`
   padding: 1rem;
-    border: 1px solid black;
+  border: 1px solid black;
 
   table {
     border-spacing: 0;
@@ -285,13 +285,6 @@ function App() {
         data={data}
         updateMyData={updateMyData}
         skipPageReset={skipPageReset}
-      />
-    </Styles>
-  );
-}
-
-export default App;
-
       />
     </Styles>
   );
