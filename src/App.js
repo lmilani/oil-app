@@ -246,7 +246,7 @@ function App() {
     []
   );
 
-  const [data, setData] = React.useState(() => makeData(1));
+  const [data, setData] = React.useState(() => makeData(5));
   const [originalData] = React.useState(data);
   const [skipPageReset, setSkipPageReset] = React.useState(false);
 
@@ -286,6 +286,7 @@ function App() {
   return (
     <Styles>
       <button onClick={resetData}>Reset Data</button>
+      <button>Add Issue</button>
       <Table
         columns={columns}
         data={data}
