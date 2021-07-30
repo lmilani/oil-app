@@ -7,9 +7,11 @@
     "eject": "rescripts eject"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "1.6.1",
     "namor": "^1.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "7.2.4",
     "react-scripts": "3.0.1",
     "react-table": "latest",
     "styled-components": "^4.3.2"

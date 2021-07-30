@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { useTable, usePagination } from "react-table";
+import { Counter } from "./features/counter/Counter";
+import { useDataFetch } from "./features/dataFetch";
 
 import makeData from "./makeData";
 
 const Styles = styled.div`
   padding: 1rem;
+    border: 1px solid black;
 
   table {
     border-spacing: 0;
@@ -56,6 +59,7 @@ const EditableCell = ({
 
   const onChange = (e) => {
     setValue(e.target.value);
+    updateMyData(index, id, value);
   };
 
   // We'll only update the external data when the input is blurred
@@ -144,6 +148,7 @@ function Table({ columns, data, updateMyData, skipPageReset }) {
       <div className="pagination">
         <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           {"<<"}
+          {">"}
         </button>{" "}
         <button onClick={() => previousPage()} disabled={!canPreviousPage}>
           {"<"}
@@ -193,27 +198,15 @@ function App() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Issue",
+        Header: "Name",
         columns: [
           {
-            Header: "ID",
-            accessor: "oil_iprop_id"
+            Header: "First Name",
+            accessor: "firstName"
           },
           {
-            Header: "Issue Type",
-            accessor: "oil_iprop_issue_type"
-          },
-          {
-            Header: "Identifier",
-            accessor: "oil_iprop_identifier"
-          },
-          {
-            Header: "Timing",
-            accessor: "oil_iprop_timing"
-          },
-          {
-            Header: "Description",
-            accessor: "oil_iprop_description"
+            Header: "Last Name",
+            accessor: "lastName"
           }
         ]
       },
@@ -221,24 +214,20 @@ function App() {
         Header: "Info",
         columns: [
           {
-            Header: "Priority",
-            accessor: "oil_iprop_priority"
+            Header: "Age",
+            accessor: "age"
           },
           {
-            Header: "Owner",
-            accessor: "oil_iprop_owner"
-          },
-          {
-            Header: "Target Resolution Date",
-            accessor: "oil_iprop_target_resolution_date"
+            Header: "Visits",
+            accessor: "visits"
           },
           {
             Header: "Status",
-            accessor: "oil_iprop_status"
+            accessor: "status"
           },
           {
-            Header: "Action",
-            accessor: "oil_iprop_action"
+            Header: "Profile Progress",
+            accessor: "progress"
           }
         ]
       }
@@ -246,7 +235,7 @@ function App() {
     []
   );
 
-  const [data, setData] = React.useState(() => makeData(5));
+  const [data, setData] = React.useState(() => makeData(20));
   const [originalData] = React.useState(data);
   const [skipPageReset, setSkipPageReset] = React.useState(false);
 
@@ -283,15 +272,26 @@ function App() {
   // illustrate that flow...
   const resetData = () => setData(originalData);
 
+  const apiResult = useDataFetch();
+  console.log(apiResult);
+
   return (
     <Styles>
+      <Counter />
+      {apiResult}
       <button onClick={resetData}>Reset Data</button>
-      <button>Add Issue</button>
       <Table
         columns={columns}
         data={data}
         updateMyData={updateMyData}
         skipPageReset={skipPageReset}
+      />
+    </Styles>
+  );
+}
+
+export default App;
+
       />
     </Styles>
   );
